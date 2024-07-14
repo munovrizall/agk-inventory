@@ -12,10 +12,15 @@ class Barang extends Model
     protected $table = 'barang';
     protected $fillable = [
         'nama_barang',
+        'stok',
+        'satuan_id',
+        'jenis_id'
     ];
+    public function jenisBarang() {
+        return $this->belongsTo(JenisBarang::class, 'jenis_id');
+    }
 
-    public function stok()
-    {
-        return $this->belongsTo(StokBarang::class, 'id');
+    public function satuan() {
+        return $this->belongsTo(Satuan::class, 'satuan_id');
     }
 }

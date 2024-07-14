@@ -18,7 +18,9 @@ class BarangResource extends Resource
     protected static ?string $model = Barang::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-circle-stack';
-    protected static ?string $navigationLabel = 'Barang';
+    protected static ?string $navigationLabel = 'Data Barang';
+    protected static ?string $navigationGroup = 'Data Master';
+
 
 
     public static function form(Form $form): Form
@@ -29,6 +31,16 @@ class BarangResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->placeholder('Masukkan nama barang'),
+                Forms\Components\Select::make('jenis_id')
+                    ->label('Jenis Barang')
+                    ->relationship('jenisBarang', 'nama_jenis')
+                    ->required()
+                    ->placeholder('Pilih jenis barang'),
+                Forms\Components\Select::make('satuan_id')
+                    ->label('Satuan')
+                    ->relationship('satuan', 'nama_satuan')
+                    ->required()
+                    ->placeholder('Pilih satuan barang'),
             ]);
     }
 
@@ -37,6 +49,16 @@ class BarangResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nama_barang')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('jenisBarang.nama_jenis')
+                    ->label('Jenis Barang')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('stok')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('satuan.nama_satuan')
+                    ->label('Satuan')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

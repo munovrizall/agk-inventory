@@ -2,26 +2,26 @@
 
 namespace App\Policies;
 
-use App\Models\StokBarang;
+use App\Models\JenisBarang;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class StokBarangPolicy
+class JenisBarangPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, StokBarang $stokBarang): bool
+    public function view(User $user, JenisBarang $jenisBarang): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,38 +29,38 @@ class StokBarangPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, StokBarang $stokBarang): bool
+    public function update(User $user, JenisBarang $jenisBarang): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, StokBarang $stokBarang): bool
+    public function delete(User $user, JenisBarang $jenisBarang): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, StokBarang $stokBarang): bool
+    public function restore(User $user, JenisBarang $jenisBarang): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, StokBarang $stokBarang): bool
+    public function forceDelete(User $user, JenisBarang $jenisBarang): bool
     {
-        //
+        return true;
     }
 }
