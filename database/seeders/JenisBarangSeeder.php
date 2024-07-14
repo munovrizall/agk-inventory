@@ -12,6 +12,8 @@ class JenisBarangSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\JenisBarang::factory()
+        ->count(5)
+        ->create();
     }
 }

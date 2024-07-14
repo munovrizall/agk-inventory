@@ -12,6 +12,8 @@ class SatuanSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\Satuan::factory()
+        ->count(5)
+        ->create();
     }
 }
