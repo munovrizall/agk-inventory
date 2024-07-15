@@ -72,6 +72,10 @@ class BarangKeluarPendingResource extends Resource
                 ->searchable()
                 ->sortable()
                 ->label('Nama Penginput'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Tanggal Keluar')
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([

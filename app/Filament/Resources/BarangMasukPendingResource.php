@@ -61,28 +61,32 @@ class BarangMasukPendingResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('barangId.nama_barang')
-                ->searchable()
-                ->sortable()
-                ->label('Nama Barang'),
+                    ->searchable()
+                    ->sortable()
+                    ->label('Nama Barang'),
                 Tables\Columns\TextColumn::make('supplierId.nama_supplier')
-                ->searchable()
-                ->sortable()
-                ->label('Nama Supplier'),
+                    ->searchable()
+                    ->sortable()
+                    ->label('Nama Supplier'),
                 Tables\Columns\TextColumn::make('jumlah_masuk')
-                ->searchable()
-                ->sortable()
-                ->label('Jumlah Barang'),
+                    ->searchable()
+                    ->sortable()
+                    ->label('Jumlah Barang'),
                 Tables\Columns\TextColumn::make('dikonfirmasi')
-                ->badge()
-                ->color(fn (string $state): string => match ($state) {
-                    '1' => 'success',
-                    '0' => 'danger',
-                })
-                ->formatStateUsing(fn (string $state): string => __($state == 1 ? "Terkonfirmasi" : "Belum Dikonfirmasi")),
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        '1' => 'success',
+                        '0' => 'danger',
+                    })
+                    ->formatStateUsing(fn (string $state): string => __($state == 1 ? "Terkonfirmasi" : "Belum Dikonfirmasi")),
                 Tables\Columns\TextColumn::make('userId.name')
-                ->searchable()
-                ->sortable()
-                ->label('Nama Penginput'),
+                    ->searchable()
+                    ->sortable()
+                    ->label('Nama Penginput'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Tanggal Masuk')
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
