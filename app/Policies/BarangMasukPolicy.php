@@ -13,7 +13,7 @@ class BarangMasukPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return $user->hasRole(['Kepala Gudang', 'Staff Gudang']);
     }
 
     /**
@@ -21,7 +21,7 @@ class BarangMasukPolicy
      */
     public function view(User $user, BarangMasuk $barangMasuk): bool
     {
-        //
+        return $user->hasRole(['Kepala Gudang', 'Staff Gudang']);
     }
 
     /**
@@ -29,7 +29,7 @@ class BarangMasukPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasRole(['Kepala Gudang', 'Staff Gudang']);
     }
 
     /**
@@ -37,7 +37,7 @@ class BarangMasukPolicy
      */
     public function update(User $user, BarangMasuk $barangMasuk): bool
     {
-        //
+        return $user->hasRole(['Kepala Gudang', 'Staff Gudang']);
     }
 
     /**
@@ -45,7 +45,7 @@ class BarangMasukPolicy
      */
     public function delete(User $user, BarangMasuk $barangMasuk): bool
     {
-        //
+        return $user->hasRole(['Kepala Gudang', 'Staff Gudang']);
     }
 
     /**
@@ -53,7 +53,7 @@ class BarangMasukPolicy
      */
     public function restore(User $user, BarangMasuk $barangMasuk): bool
     {
-        //
+        return $user->hasRole(['Kepala Gudang', 'Staff Gudang']);
     }
 
     /**
@@ -61,6 +61,6 @@ class BarangMasukPolicy
      */
     public function forceDelete(User $user, BarangMasuk $barangMasuk): bool
     {
-        //
+        return $user->hasRole(['Kepala Gudang', 'Staff Gudang']);
     }
 }

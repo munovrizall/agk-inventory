@@ -24,6 +24,17 @@ class UserSeeder extends Seeder
         ]);
 
         $admin->assignRole('Admin Gudang');
+        
+        $kepalaGudang = User::create([
+            'name' => 'Jale',
+            'username' => 'jale',
+            'email' => 'jale@email.com',
+            'password' => Hash::make('jale'),
+            'no_telp' => '081234567890',
+            'is_active' => true
+        ]);
+
+        $kepalaGudang->assignRole('Kepala Gudang');
 
     }
 }

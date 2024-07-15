@@ -14,7 +14,6 @@ class BarangKeluarPending extends Model
         'user_id',
         'barang_id',
         'jumlah_keluar',
-        'dikonfirmasi'
     ];
 
     public function barangId() {

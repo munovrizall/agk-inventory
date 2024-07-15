@@ -5,7 +5,9 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BarangKeluarPendingResource\Pages;
 use App\Filament\Resources\BarangKeluarPendingResource\RelationManagers;
 use App\Models\Barang;
+use App\Models\BarangKeluar;
 use App\Models\BarangKeluarPending;
+use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class BarangKeluarPendingResource extends Resource
 {
@@ -24,7 +27,7 @@ class BarangKeluarPendingResource extends Resource
 
     protected static ?string $navigationLabel = 'Barang Keluar';
     protected static ?string $navigationGroup = 'Transaksi';
-
+   
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -54,24 +57,17 @@ class BarangKeluarPendingResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('barangId.nama_barang')
-                ->searchable()
-                ->sortable()
-                ->label('Nama Barang'),
+                    ->searchable()
+                    ->sortable()
+                    ->label('Nama Barang'),
                 Tables\Columns\TextColumn::make('jumlah_keluar')
-                ->searchable()
-                ->sortable()
-                ->label('Jumlah Barang'),
-                Tables\Columns\TextColumn::make('dikonfirmasi')
-                ->badge()
-                ->color(fn (string $state): string => match ($state) {
-                    '1' => 'success',
-                    '0' => 'danger',
-                })
-                ->formatStateUsing(fn (string $state): string => __($state == 1 ? "Terkonfirmasi" : "Belum Dikonfirmasi")),
+                    ->searchable()
+                    ->sortable()
+                    ->label('Jumlah Barang'),
                 Tables\Columns\TextColumn::make('userId.name')
-                ->searchable()
-                ->sortable()
-                ->label('Nama Penginput'),
+                    ->searchable()
+                    ->sortable()
+                    ->label('Nama Penginput'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Tanggal Keluar')
                     ->dateTime()
@@ -82,6 +78,32 @@ class BarangKeluarPendingResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('konfirmasi')
+                    ->name('konfirmasi')
+                    ->label('Konfirmasi')
+                    ->color('success')
+                    ->icon('heroicon-o-check-circle')
+                    ->requiresConfirmation()
+                    ->authorize(function (BarangKeluarPending $record) {
+                        return auth()->user()->can('konfirmasi', $record);
+                    })
+                    ->action(function (BarangKeluarPending $record) {
+                        // Pindahkan data dari barang_keluar_pending ke barang_keluar
+                        $barangKeluar = BarangKeluar::create([
+                            'barang_id' => $record->barang_id,
+                            'jumlah_keluar' => $record->jumlah_keluar,
+                            'tanggal_keluar' => $record->created_at,
+                        ]);
+
+                        // Kurangi stok barang
+                        $barang = Barang::findOrFail($record->barang_id);
+                        $barang->stok -= $record->jumlah_keluar;
+                        $barang->save();
+
+                        // Hapus data dari barang_keluar_pending
+                        $record->delete();
+                    }),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
