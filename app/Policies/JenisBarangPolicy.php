@@ -13,7 +13,7 @@ class JenisBarangPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 
     /**
@@ -21,7 +21,7 @@ class JenisBarangPolicy
      */
     public function view(User $user, JenisBarang $jenisBarang): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 
     /**
@@ -29,7 +29,7 @@ class JenisBarangPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 
     /**
@@ -37,7 +37,7 @@ class JenisBarangPolicy
      */
     public function update(User $user, JenisBarang $jenisBarang): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 
     /**
@@ -45,7 +45,7 @@ class JenisBarangPolicy
      */
     public function delete(User $user, JenisBarang $jenisBarang): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 
     /**
@@ -53,7 +53,7 @@ class JenisBarangPolicy
      */
     public function restore(User $user, JenisBarang $jenisBarang): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 
     /**
@@ -61,6 +61,6 @@ class JenisBarangPolicy
      */
     public function forceDelete(User $user, JenisBarang $jenisBarang): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 }

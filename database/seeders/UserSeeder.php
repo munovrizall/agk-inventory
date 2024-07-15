@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        $admin = User::create([
             'name' => 'admin',
             'username' => 'admin',
             'email' => 'admin@email.com',
@@ -22,5 +22,8 @@ class UserSeeder extends Seeder
             'no_telp' => '081234567890',
             'is_active' => true
         ]);
+
+        $admin->assignRole('Admin Gudang');
+
     }
 }

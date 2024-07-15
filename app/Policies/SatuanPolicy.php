@@ -13,7 +13,7 @@ class SatuanPolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 
     /**
@@ -21,7 +21,7 @@ class SatuanPolicy
      */
     public function view(User $user, Satuan $satuan): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 
     /**
@@ -29,8 +29,7 @@ class SatuanPolicy
      */
     public function create(User $user): bool
     {
-        return true;
-
+        return $user->hasRole('Admin Gudang');
     }
 
     /**
@@ -38,7 +37,7 @@ class SatuanPolicy
      */
     public function update(User $user, Satuan $satuan): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 
     /**
@@ -46,7 +45,7 @@ class SatuanPolicy
      */
     public function delete(User $user, Satuan $satuan): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 
     /**
@@ -54,7 +53,7 @@ class SatuanPolicy
      */
     public function restore(User $user, Satuan $satuan): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 
     /**
@@ -62,6 +61,6 @@ class SatuanPolicy
      */
     public function forceDelete(User $user, Satuan $satuan): bool
     {
-        return true;
+        return $user->hasRole('Admin Gudang');
     }
 }

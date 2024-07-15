@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
 {
@@ -52,6 +53,7 @@ class UserResource extends Resource
                     ->tel()
                     ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
                     ->placeholder('Masukkan nomor telepon pengguna')
+                    ->required()
                     ,
                 Forms\Components\Select::make('is_active')
                     ->label('Apakah pengguna aktif?')
@@ -59,8 +61,14 @@ class UserResource extends Resource
                         '1' => 'Aktif',
                         '0' => 'Tidak Aktif',
                     ])
-                    ->placeholder('Pilih opsi')
-
+                    ->placeholder('Pilih opsi'),
+                Forms\Components\Select::make('roles')
+                    ->label('Pilih role pengguna')
+                    ->relationship('roles', 'name')
+                    ->preload() 
+                    ->searchable()
+                    ->required()
+                    ->placeholder('Pilih role'),
             ]);
     }
 
@@ -70,11 +78,9 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('username')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('no_telp')
+                Tables\Columns\TextColumn::make('roles.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('is_active')
                 ->label('Apakah Aktif')
