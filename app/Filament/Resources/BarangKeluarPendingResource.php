@@ -80,7 +80,7 @@ class BarangKeluarPendingResource extends Resource
             ->actions([
                 Tables\Actions\Action::make('konfirmasi')
                     ->name('konfirmasi')
-                    ->label('Konfirmasi')
+                    ->label('Konfirmasi Transaksi')
                     ->color('success')
                     ->icon('heroicon-o-check-circle')
                     ->requiresConfirmation()

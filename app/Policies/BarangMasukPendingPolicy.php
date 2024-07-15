@@ -13,7 +13,7 @@ class BarangMasukPendingPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('Admin Gudang');
+        return $user->hasRole(['Admin Gudang', 'Kepala Gudang', 'Staff Gudang']);
     }
 
     /**
@@ -21,7 +21,7 @@ class BarangMasukPendingPolicy
      */
     public function view(User $user, BarangMasukPending $barangMasukPending): bool
     {
-        return $user->hasRole('Admin Gudang');
+        return $user->hasRole(['Admin Gudang', 'Kepala Gudang', 'Staff Gudang']);
     }
 
     /**
@@ -37,7 +37,7 @@ class BarangMasukPendingPolicy
      */
     public function update(User $user, BarangMasukPending $barangMasukPending): bool
     {
-        return $user->hasRole('Admin Gudang');
+        return $user->hasRole(['Admin Gudang', 'Kepala Gudang', 'Staff Gudang']);
     }
 
     /**
@@ -53,7 +53,7 @@ class BarangMasukPendingPolicy
      */
     public function restore(User $user, BarangMasukPending $barangMasukPending): bool
     {
-        return $user->hasRole('Admin Gudang');
+        return $user->hasRole(['Admin Gudang', 'Kepala Gudang', 'Staff Gudang']);
     }
 
     /**
@@ -62,5 +62,10 @@ class BarangMasukPendingPolicy
     public function forceDelete(User $user, BarangMasukPending $barangMasukPending): bool
     {
         return $user->hasRole('Admin Gudang');
+    }
+
+    public function konfirmasi(User $user, BarangMasukPending $barangMasukPending): bool
+    {
+        return $user->hasRole(['Kepala Gudang', 'Staff Gudang']);
     }
 }

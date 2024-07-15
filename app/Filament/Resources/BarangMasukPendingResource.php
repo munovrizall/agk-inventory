@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BarangMasukPendingResource\Pages;
 use App\Filament\Resources\BarangMasukPendingResource\RelationManagers;
 use App\Models\Barang;
+use App\Models\BarangMasuk;
 use App\Models\BarangMasukPending;
 use App\Models\Supplier;
 use Filament\Facades\Filament;
@@ -72,13 +73,6 @@ class BarangMasukPendingResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->label('Jumlah Barang'),
-                Tables\Columns\TextColumn::make('dikonfirmasi')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        '1' => 'success',
-                        '0' => 'danger',
-                    })
-                    ->formatStateUsing(fn (string $state): string => __($state == 1 ? "Terkonfirmasi" : "Belum Dikonfirmasi")),
                 Tables\Columns\TextColumn::make('userId.name')
                     ->searchable()
                     ->sortable()
@@ -93,6 +87,33 @@ class BarangMasukPendingResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('konfirmasi')
+                    ->name('konfirmasi')
+                    ->label('Konfirmasi Transaksi')
+                    ->color('success')
+                    ->icon('heroicon-o-check-circle')
+                    ->requiresConfirmation()
+                    ->authorize(function (BarangMasukPending $record) {
+                        return auth()->user()->can('konfirmasi', $record);
+                    })
+                    ->action(function (BarangMasukPending $record) {
+                        // Pindahkan data dari barang_keluar_pending ke barang_keluar
+                        $barangMasuk = BarangMasuk::create([
+                            'barang_id' => $record->barang_id,
+                            'supplier_id' => $record->supplier_id,
+                            'jumlah_masuk' => $record->jumlah_masuk,
+                            'tanggal_masuk' => $record->created_at,
+                        ]);
+
+                        // Kurangi stok barang
+                        $barang = Barang::findOrFail($record->barang_id);
+                        $barang->stok += $record->jumlah_masuk;
+                        $barang->save();
+
+                        // Hapus data dari barang_keluar_pending
+                        $record->delete();
+                    }),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
