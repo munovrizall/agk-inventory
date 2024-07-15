@@ -36,13 +36,15 @@ class BarangKeluarResource extends Resource
                 Tables\Columns\TextColumn::make('barang.nama_barang')
                     ->label('Nama Barang')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('jumlah_keluar')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tanggal_keluar')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

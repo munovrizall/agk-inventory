@@ -34,17 +34,20 @@ class BarangMasukResource extends Resource
                 Tables\Columns\TextColumn::make('barangId.nama_barang')
                     ->label('Nama Barang')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('supplierId.nama_supplier')
                     ->label('Nama Supplier')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('jumlah_masuk')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('tanggal_masuk')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
