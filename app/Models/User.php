@@ -25,6 +25,13 @@ class User extends Authenticatable
         'is_active'
     ];
 
+    public function userId() {
+        return $this->hasOne(BarangMasukPending::class, 'user_id');
+    }
+
+    public function userBarangKeluarId() {
+        return $this->hasOne(BarangKeluarPending::class, 'user_id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -23,4 +23,12 @@ class Barang extends Model
     public function satuan() {
         return $this->belongsTo(Satuan::class, 'satuan_id');
     }
+    
+    public function barangId() {
+        return $this->hasOne(BarangMasukPending::class, 'barang_id');
+    }
+
+    public function barangKeluarId() {
+        return $this->hasOne(BarangKeluarPending::class, 'barang_id');
+    }
 }

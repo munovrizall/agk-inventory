@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Supplier>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\BarangKeluarPending>
  */
-class SupplierFactory extends Factory
+class BarangKeluarPendingFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class SupplierFactory extends Factory
     public function definition(): array
     {
         return [
-            'nama_supplier' => fake()->name(),
-            'no_telp' => fake()->phoneNumber(),
-            'alamat' => fake()->address(),
+            //
         ];
     }
 }

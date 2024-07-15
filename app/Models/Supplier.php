@@ -15,4 +15,8 @@ class Supplier extends Model
         'no_telp',
         'alamat',
     ];
+
+    public function supplierId() {
+        return $this->hasOne(BarangMasukPending::class, 'barang_id');
+    }
 }
