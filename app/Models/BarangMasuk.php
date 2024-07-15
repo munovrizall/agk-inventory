@@ -16,4 +16,12 @@ class BarangMasuk extends Model
         'jumlah_masuk',
         'tanggal_masuk'
     ];
+
+    public function barangId() {
+        return $this->belongsTo(Barang::class, 'barang_id');
+    }
+
+    public function supplierId() {
+        return $this->belongsTo(Supplier::class, 'supplier_id');
+    }
 }

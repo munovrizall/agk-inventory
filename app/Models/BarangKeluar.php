@@ -25,4 +25,8 @@ class BarangKeluar extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function supplierId() {
+        return $this->belongsTo(Supplier::class, 'supplier_id');
+    }
 }
