@@ -27,7 +27,7 @@ class BarangKeluarPendingResource extends Resource
 
     protected static ?string $navigationLabel = 'Barang Keluar';
     protected static ?string $navigationGroup = 'Transaksi';
-   
+
     protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
@@ -39,7 +39,20 @@ class BarangKeluarPendingResource extends Resource
                     ->label('Nama Barang')
                     ->options(Barang::all()->pluck('nama_barang', 'id'))
                     ->searchable()
-                    ->placeholder('Pilih Barang'),
+                    ->placeholder('Pilih Barang')
+                    ->reactive() // This makes the field reactive to changes
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        $barang = Barang::find($state);
+                        if ($barang) {
+                            $set('stok', $barang->stok);
+                        } else {
+                            $set('stok', 0); // Atau nilai default lainnya jika barang tidak ditemukan
+                        }
+                    }),
+                Forms\Components\TextInput::make('stok')
+                    ->label('Stok Barang Tersedia')
+                    ->disabled() 
+                    ->reactive(),
                 Forms\Components\TextInput::make('jumlah_keluar')
                     ->required()
                     ->label('Jumlah Barang Keluar')
@@ -49,7 +62,8 @@ class BarangKeluarPendingResource extends Resource
                     ->placeholder('Masukkan jumlah barang keluar'),
                 Forms\Components\Hidden::make('user_id')
                     ->default(Auth::id()),
-            ]);
+            ])
+            ;
     }
 
     public static function table(Table $table): Table
