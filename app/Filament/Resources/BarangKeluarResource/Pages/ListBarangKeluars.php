@@ -3,8 +3,11 @@
 namespace App\Filament\Resources\BarangKeluarResource\Pages;
 
 use App\Filament\Resources\BarangKeluarResource;
+use App\Models\BarangKeluar;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Actions\Action;
+
 
 class ListBarangKeluars extends ListRecords
 {
@@ -19,7 +22,21 @@ class ListBarangKeluars extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-           
+            Action::make('cetakPDF')
+                ->label('Cetak Laporan')
+                ->color('primary')
+                ->icon('heroicon-o-printer')
+                ->action(function () {
+                    $barangKeluars = BarangKeluar::all();
+
+                    $pdf = app('dompdf.wrapper');
+                    $pdf->loadView('pdf.barang_keluar', compact('barangKeluars'));
+
+                    return response()->streamDownload(
+                        fn () => print($pdf->stream()),
+                        'laporan_barang_keluar.pdf'
+                    );
+                }),
         ];
     }
 
