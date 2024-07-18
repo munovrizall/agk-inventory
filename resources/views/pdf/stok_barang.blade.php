@@ -62,7 +62,7 @@
             @foreach($stokBarangs as $stokBarang)
             <tr>
                 <td>{{ $stokBarang->nama_barang }}</td>
-                <td>{{ $stokBarang->stok }}</td>
+                <td>{{ $stokBarang->stok . ' ' . $stokBarang->satuan->nama_satuan }}</td>
             </tr>
             @endforeach
         </tbody>

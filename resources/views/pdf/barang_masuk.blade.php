@@ -54,20 +54,28 @@
     <table>
         <thead>
             <tr>
+                <th>No</th>
+                <th>Tanggal Masuk</th>
                 <th>Nama Supplier</th>
                 <th>Nama Barang</th>
                 <th>Jumlah Masuk</th>
-                <th>Tanggal Masuk</th>
             </tr>
         </thead>
         <tbody>
+            @php
+            $nomor = 1;
+            @endphp
             @foreach($barangMasuks as $barangMasuk)
             <tr>
+                <td>{{ $nomor }}</td>
+                <td>{{ $barangMasuk->created_at->format('d/m/Y') }}</td>
                 <td>{{ $barangMasuk->supplierId->nama_supplier }}</td>
                 <td>{{ $barangMasuk->barangId->nama_barang }}</td>
                 <td>{{ $barangMasuk->jumlah_masuk . ' ' . $barangMasuk->barangId->satuan->nama_satuan }}</td>
-                <td>{{ $barangMasuk->created_at->format('d/m/Y') }}</td>
             </tr>
+            @php
+            $nomor++;
+            @endphp
             @endforeach
         </tbody>
     </table>
