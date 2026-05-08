@@ -1,66 +1,200 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# AGK Inventory
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**AGK Inventory** is a web-based warehouse inventory management system for **Artha Griya Kencana**. It helps warehouse teams manage item master data, suppliers, stock movement, transaction approvals, and stock reports from a centralized admin panel.
 
-## About Laravel
+The application is built with Laravel and Filament, providing a clean CMS-style interface for warehouse operations. It is designed to reduce manual stock tracking errors, improve accountability for incoming and outgoing goods, and give warehouse teams better visibility into available inventory.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Key Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Inventory Master Data**: Manage goods, item categories, units, and current stock quantities.
+- **Supplier Management**: Store supplier names, phone numbers, and addresses for purchasing and warehouse reference.
+- **Incoming Goods Workflow**: Record incoming goods as pending transactions before they affect stock.
+- **Outgoing Goods Workflow**: Record outgoing goods requests while showing the currently available stock.
+- **Transaction Confirmation**: Authorized warehouse users can confirm incoming or outgoing transactions, automatically updating stock levels.
+- **Stock Movement Reports**: View confirmed incoming and outgoing goods history in separate report pages.
+- **Stock Report PDF**: Generate printable PDF reports for current item stock.
+- **Dashboard Overview**: Display key operational summaries such as total items, suppliers, stock quantity, and users.
+- **Role-Based Access Control**: Restrict access and actions based on warehouse roles using Spatie Permission.
+- **Admin Panel**: Filament-powered CMS for managing users, master data, transactions, and reports.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Workflow Overview
 
-## Learning Laravel
+AGK Inventory separates daily warehouse activity into clear operational steps:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. **Admin Gudang** manages master data such as goods, categories, units, suppliers, and users.
+2. Warehouse users create **pending incoming goods** or **pending outgoing goods** transactions.
+3. Authorized roles such as **Kepala Gudang** or **Staff Gudang** review and confirm the transactions.
+4. Once confirmed, the transaction is moved into the official report table.
+5. The item stock is automatically increased for incoming goods or decreased for outgoing goods.
+6. Warehouse teams can monitor stock and print PDF stock reports from the reporting page.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## User Roles
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Admin Gudang**: Manages master data, users, suppliers, and pending transaction records.
+- **Kepala Gudang**: Reviews warehouse stock and confirms incoming or outgoing goods transactions.
+- **Staff Gudang**: Handles warehouse stock reports and transaction confirmation workflows.
+- **Staff Purchasing**: Manages supplier-related data.
+- **Kepala Operasional**: Available as an operational management role.
 
-## Laravel Sponsors
+<!-- ## Screenshots
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Screenshots can be added here after the application screens are captured.
 
-### Premium Partners
+| Dashboard | Data Barang | Laporan Stok |
+| :-------: | :---------: | :----------: |
+| Coming soon | Coming soon | Coming soon | -->
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Tech Stack
 
-## Contributing
+- **Framework**: Laravel 11
+- **Admin Panel**: Filament 3
+- **Authorization**: Spatie Laravel Permission
+- **PDF Generation**: Barryvdh Laravel Dompdf
+- **Database**: MySQL
+- **Frontend Tooling**: Vite
+- **Language**: PHP 8.2+
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Main Modules
 
-## Code of Conduct
+- **Data Barang**: Item records with category, unit, and stock information.
+- **Jenis Barang**: Item category management.
+- **Satuan Barang**: Unit management for inventory items.
+- **Supplier**: Supplier contact and address data.
+- **Barang Masuk Pending**: Incoming goods transactions waiting for confirmation.
+- **Barang Keluar Pending**: Outgoing goods transactions waiting for confirmation.
+- **Laporan Barang Masuk**: Confirmed incoming goods history.
+- **Laporan Barang Keluar**: Confirmed outgoing goods history.
+- **Laporan Stok**: Current stock overview with PDF export.
+- **Pengguna**: User and role management.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Prerequisites
 
-## Security Vulnerabilities
+Make sure your local environment has:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **PHP**: ^8.2
+- **Composer**
+- **Node.js & npm**
+- **MySQL** or another Laravel-supported database
 
-## License
+## Installation & Setup
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Follow these steps to run the project locally:
+
+1. **Clone the Repository**
+
+    ```bash
+    git clone https://github.com/munovrizall/agk-inventory.git
+    cd agk-inventory
+    ```
+
+2. **Install PHP Dependencies**
+
+    ```bash
+    composer install
+    ```
+
+3. **Install JavaScript Dependencies**
+
+    ```bash
+    npm install
+    ```
+
+4. **Create Environment File**
+
+    ```bash
+    cp .env.example .env
+    ```
+
+5. **Generate Application Key**
+
+    ```bash
+    php artisan key:generate
+    ```
+
+6. **Configure Database**
+
+    Update the database configuration in `.env`:
+
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=agk_inventory
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+
+7. **Run Migrations and Seeders**
+
+    ```bash
+    php artisan migrate --seed
+    ```
+
+8. **Build Frontend Assets**
+
+    ```bash
+    npm run build
+    ```
+
+## Running the Application
+
+Start the Laravel development server:
+
+```bash
+php artisan serve
+```
+
+The application will be available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+The admin panel is available at:
+
+```text
+http://127.0.0.1:8000/admin
+```
+
+## Default Login
+
+After running the database seeders, you can use the default admin account:
+
+```text
+Email: admin@email.com
+Password: admin
+```
+
+Another seeded warehouse user is also available:
+
+```text
+Email: jale@email.com
+Password: jale
+Role: Kepala Gudang
+```
+
+## Development
+
+For local development with Vite:
+
+```bash
+npm run dev
+```
+
+In another terminal, run:
+
+```bash
+php artisan serve
+```
+
+## Testing
+
+Run the test suite with:
+
+```bash
+php artisan test
+```
+
+## Repository
+
+[https://github.com/munovrizall/agk-inventory](https://github.com/munovrizall/agk-inventory)
